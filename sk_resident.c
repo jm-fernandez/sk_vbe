@@ -23,22 +23,26 @@ static void __declspec(naked) chain_interrupt(sk_org_interrupt_handler_t handler
 {
   _asm
   {
-    mov     cx, ax
-    mov     ax, dx
-    mov     sp, bp
-    xchg    cx, 20[bp]
-    xchg    ax, 22[bp]
-    pop     dx
-    pop     dx
-    pop     es
-    pop     ds
-    pop     di
-    pop     si
-    pop     bp
-    pop     bx
-    pop     bx
-    pop     dx
-    retf
+      mov     cx,ax
+      mov     ax,dx
+      mov     sp,bp
+      xchg    cx,20[bp]
+      xchg    ax,22[bp]
+      mov     bx,28[bp]
+      and     bx,0FCFFh
+      push    bx
+      popf
+      pop     dx
+      pop     dx
+      pop     es
+      pop     ds
+      pop     di
+      pop     si
+      pop     bp
+      pop     bx
+      pop     bx
+      pop     dx
+      retf
   }
 }
 
